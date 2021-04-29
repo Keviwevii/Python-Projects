@@ -13,7 +13,9 @@ Close
 """
 
 from tkinter import *
-import backend as be
+from backend import Database
+
+database = Database("books.db")
 
 def get_selected_row(event):
     try:
@@ -34,25 +36,25 @@ def get_selected_row(event):
 
 def view_command():
     list1.delete(0,END)
-    for row in be.view():
+    for row in database.view():
         list1.insert(END, row)
         
 def search_command():
     list1.delete(0,END)
-    for row in be.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
+    for row in database.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
         list1.insert(END, row)
         
 def add_command():
-    be.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    database.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
     list1.delete(0,END)
     list1.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
     # view_command()
     
 def delete_command():
-    be.delete(selected_tuple[0])
+    database.delete(selected_tuple[0])
     
 def update_command():
-    be.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    database.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
     
     
     
